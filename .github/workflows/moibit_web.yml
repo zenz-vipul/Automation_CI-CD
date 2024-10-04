@@ -2,7 +2,7 @@ name: MOIBit Website Test
 
 on:
   schedule:
-    - cron: '43 13 * * *'  # Triggers at 10:00 AM IST
+    - cron: '00 13 * * *'  # Triggers at 10:00 AM IST
   workflow_dispatch:
 
 jobs:
