@@ -20,14 +20,14 @@ class LoginAutomation:
     def click_go_to_app(self):
         try:
             go_to_app_button = WebDriverWait(self.driver, 15).until(
-                EC.element_to_be_clickable(
+                EC.visibility_of_element_located(
                     (By.XPATH, "//button[span[text()='Go to app']]")
                 )
             )
             go_to_app_button.click()
         except TimeoutException:
             print("Timed out waiting for the 'Go to app' button to load.")
-            print(self.driver.page_source)
+        print(self.driver.page_source)
 
     def login(self, username, password):
         try:
