@@ -19,13 +19,11 @@ def driver():
     driver = webdriver.Chrome(options=chrome_options)  
     url = os.environ.get('URL') or 'https://iome.ai'
     driver.get(url)
-    driver.maximize_window()
     yield driver
     driver.quit()
 
 def test_nav_links(driver):
     try:
-        # Increased wait time
         print("Waiting for page to be fully loaded...")
         WebDriverWait(driver, 60).until(
             EC.presence_of_element_located((By.TAG_NAME, 'body'))
@@ -49,23 +47,22 @@ def test_nav_links(driver):
             
             print(f"Testing navbar link: {link_name} -> {link_url}")
             driver.get(link_url)
-            time.sleep(3)
 
             expected_url = {
                 "Digital You": "https://iome.ai/#the-digital-you",
                 "Developer": "https://dev.iome.ai/",
                 "Community": "https://iomeai.slack.com/join/shared_invite/zt-20s1w9jxg-unzBomKqMBrrq~DlYNpQHQ#/shared-invite/email",
-                # Removed "Go to app" link
             }
             
-            # Check if the link is in the expected URLs
             if link_name in expected_url:
                 assert driver.current_url == expected_url[link_name], f"Navigation Link '{link_name}' did not redirect correctly or is broken."
             else:
                 print(f"Skipping validation for link: {link_name}")
 
             driver.back()
-            time.sleep(2)
+            WebDriverWait(driver, 10).until(
+                EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
+            )  # Wait for the navbar to be visible again
 
     except TimeoutException:
         pytest.fail("Timeout: Navbar could not be located.")
