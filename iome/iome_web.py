@@ -10,11 +10,16 @@ from selenium.webdriver.chrome.options import Options
 
 
 @pytest.fixture(scope="module")
+@pytest.fixture(scope="module")
 def driver():
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--no-sandbox")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-software-rasterizer")  # Useful for headless Chrome
+    options.add_argument("--remote-debugging-port=9222")  # Required for DevTools
     driver = webdriver.Chrome(options=options)
     url = os.environ.get('URL') or 'https://iome.ai'
     driver.get(url)
