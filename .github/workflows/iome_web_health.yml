@@ -1,67 +1,28 @@
-# name: MOIBit Website CI/CD
-
-# on:
-#   schedule:
-#     - cron: '20 10 * * *'  # Triggers at 10:00 AM IST
-#   workflow_dispatch:
-
-# jobs:
-#   selenium-tests:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: Checkout repository
-#       uses: actions/checkout@v3
-
-#     - name: Set up Python 3.x
-#       uses: actions/setup-python@v4
-#       with:
-#         python-version: '3.x'
-
-#     - name: Install dependencies
-#       run: |
-#         python -m pip install --upgrade pip
-#         pip install -r requirements.txt
-
-#     - name: Run Selenium Tests
-#       run: |
-#         pytest iome/iome_web.py
-
-name: Selenium Tests
+name: MOIBit Website CI/CD
 
 on:
   schedule:
     - cron: '20 10 * * *'  # Triggers at 10:00 AM IST
   workflow_dispatch:
-
+  
 jobs:
-  test:
+  selenium-tests:
     runs-on: ubuntu-latest
 
-    services:
-      selenium:
-        image: selenium/standalone-chrome
-        options: --privileged
-        ports:
-          - 4444:4444
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.8'
+        python-version: '3.x'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest selenium
+        pip install -r requirements.txt
 
-    - name: Run tests
-      env:
-        URL: https://iome.ai
+    - name: Run Selenium Tests
       run: |
-        pytest -v
-
+        pytest iome/iome_web.py
