@@ -63,5 +63,4 @@ jobs:
       env:
         URL: https://iome.ai
       run: |
-        pytest -v
-
+         pytest iome/iome_web.py
