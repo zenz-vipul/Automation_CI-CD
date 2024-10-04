@@ -1,86 +1,101 @@
-import pytest
-import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.chrome.options import Options
 
-# Set Chrome options for headless mode
-chrome_options = Options()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
+url="https://moibit.io"
 
-@pytest.fixture(scope="module")
-def driver():
-    # Pass the Chrome options to WebDriver
-    driver = webdriver.Chrome(options=chrome_options)
-    driver.get("https://moibit.io/")
+firefox_option=Options()   
+firefox_option.add_argument('--headless')
+
+def test_moibit():
+    driver=webdriver.Firefox(options=firefox_option)
+    wait=WebDriverWait(driver,10)
+    driver.implicitly_wait(10)
+    driver.get(url)
     driver.maximize_window()
-    yield driver
-    driver.quit()
+    h1TitleDataCheck1=driver.find_element(By.XPATH, '//div[@class="container grid md:gap-48 gap-32"]/h1')
+    assert h1TitleDataCheck1.text=='Your data, managed your way'
 
-def test_nav_links(driver):
-    try:
-        navbar = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#navbarMenu"))
-        )
-        nav_links = navbar.find_elements(By.TAG_NAME, "a")
+    #header
+    driver.find_element(By.LINK_TEXT, 'Pricing').click()
+    h1TitleDataCheck2=driver.find_element(By.TAG_NAME, 'h1')
+    assert h1TitleDataCheck2.text=="Personalised web3 storage that scales with your needs"
+    driver.back()
+    parent=driver.current_window_handle
+    app=driver.find_element(By.LINK_TEXT, 'Go to app')
+    driver.execute_script('arguments[0].click()',app)
+    driver.switch_to.window(driver.window_handles[1])   
+    p1TitleDataCheck1=driver.find_element(By.XPATH, '//div[@style="color: rgb(255, 255, 255); margin-top: 30px;"]/p[1]')
+    assert p1TitleDataCheck1.text=='A FILE IN MOIBIT IS'
+    driver.switch_to.window(parent) 
+    driver.find_element(By.XPATH, '//button[@class="btn btn_primary px-8 py-2"]').click()
+    driver.switch_to.window(driver.window_handles[1])
+    p1TitleDataCheck2=driver.find_element(By.XPATH, '//div[@style="color: rgb(255, 255, 255); margin-top: 30px;"]/p[1]')
+    assert p1TitleDataCheck2.text=='A FILE IN MOIBIT IS'
+    driver.switch_to.window(parent)
+    driver.find_element(By.XPATH, '//button[@class="btn btn_secondary"]').click()
+    h1TitleDataCheck3=driver.find_element(By.TAG_NAME, 'h1')
+    assert h1TitleDataCheck3.text=='Introduction'
+    driver.back()
+    driver.find_element(By.XPATH, '//div[@class="moi-contribute-card card h-full"][1]').click()
+    driver.switch_to.window(driver.window_handles[1])
+    id=driver.find_element(By.ID, '330d')
+    assert id.text=='The Decentralization Dance.'
+    driver.switch_to.window(parent)
+    driver.find_element(By.XPATH, '//div[@class="moi-contribute-card card h-full"][2]').click()
+    driver.switch_to.window(driver.window_handles[1])
+    check1=driver.find_element(By.XPATH, '//strong[1]')
+    assert check1.text=='About Aicumen Technologies:'
+    driver.switch_to.window(parent)
+    driver.find_element(By.XPATH, '//div[@class="moi-contribute-card card h-full"][3]').click()
+    driver.switch_to.window(driver.window_handles[1])
+    h1TitleDataCheck4=driver.find_element(By.TAG_NAME, 'h1')
+    assert h1TitleDataCheck4.text=='MoiBit — The practical Decentralized Cloud Storage Network'
+    driver.switch_to.window(parent)
+    driver.find_element(By.XPATH, '//*[@id="blogs"]/div/a/button').click()
+    driver.switch_to.window(driver.window_handles[1])
+    h1TitleDataCheck5=driver.find_element(By.TAG_NAME, 'h1')
+    assert h1TitleDataCheck5.text=='MOI Technology'
+    driver.switch_to.window(parent)
 
-        for link in nav_links:
-            link_name = link.text.strip()
-            link_url = link.get_attribute("href")
-
-            if not link_name or "mailto:" in link_url:
-                print(f"Skipping link: {link_name or 'empty'}")
-                continue
-
-            print(f"Testing navbar link: {link_name} -> {link_url}")
-            driver.get(link_url)
-            time.sleep(2)
-
-            # Check if the link redirected correctly
-            if driver.current_url == link_url or link_url in driver.current_url:
-                print(f"Navigation Link '{link_name}' is working and redirected successfully.")
-            else:
-                print(f"Navigation Link '{link_name}' did not redirect correctly or is broken.")
-
-            driver.back()
-            time.sleep(2)
-
-    except TimeoutException:
-        pytest.fail("Timeout: Navbar could not be located.")
-    except Exception as e:
-        pytest.fail(f"Error locating navbar links: {e}")
-
-def test_links(driver):
-    try:
-        # Adjust this selector to target the specific links you want to test
-        link_elements = driver.find_elements(By.CSS_SELECTOR, ".link-class")  # Update with the correct selector
-
-        for link in link_elements:
-            link_name = link.find_element(By.TAG_NAME, "h4").text.strip()  # Assuming each link has an h4 element
-            link_url = link.get_attribute("href")
-
-            if not link_name or "mailto:" in link_url or link_url is None:
-                print(f"Skipping link: {link_name or 'empty'}")
-                continue
-
-            print(f"Testing link: {link_name} -> {link_url}")
-
-            driver.get(link_url)
-            time.sleep(2)
-
-            if driver.current_url == link_url or link_url in driver.current_url:
-                print(f"Link '{link_name}' is working and redirected successfully.")
-            else:
-                print(f"Link '{link_name}' did not redirect correctly or is broken.")
-
-            driver.back()
-            time.sleep(2)
-
-    except Exception as e:
-        pytest.fail(f"Error locating links: {e}")
+    driver.find_element(By.LINK_TEXT, 'Documentation').click()
+    driver.switch_to.window(driver.window_handles[1])
+    h1TitleDataCheck6=driver.find_element(By.TAG_NAME, 'h1')
+    assert h1TitleDataCheck6.text=='Introduction'
+    driver.switch_to.window(parent)
+    driver.find_element(By.LINK_TEXT, 'Pricing').click()
+    h1TitleDataCheck7=driver.find_element(By.TAG_NAME, 'h1')
+    assert h1TitleDataCheck7.text=='Personalised web3 storage that scales with your needs'
+    driver.back()
+    driver.find_element(By.LINK_TEXT, 'Privacy Policy').click()
+    driver.switch_to.window(driver.window_handles[1])
+    h1TitleDataCheck8=driver.find_element(By.TAG_NAME, 'h1')
+    assert h1TitleDataCheck8.text=='PRIVACY NOTICE'
+    driver.switch_to.window(parent)
+    driver.find_element(By.LINK_TEXT, 'Cookie Policy').click()
+    driver.switch_to.window(driver.window_handles[1])
+    h1TitleDataCheck9=driver.find_element(By.TAG_NAME, 'h1')
+    assert h1TitleDataCheck9.text=='COOKIE POLICY'
+    driver.switch_to.window(parent)
+    driver.find_element(By.LINK_TEXT, 'Terms & Condition').click()
+    driver.switch_to.window(driver.window_handles[1])
+    h1TitleDataCheck10=driver.find_element(By.TAG_NAME, 'h1')
+    assert h1TitleDataCheck10.text=='TERMS OF SERVICE'
+    driver.switch_to.window(parent)
+    driver.find_element(By.LINK_TEXT, 'MOI Nation').click()
+    driver.switch_to.window(driver.window_handles[1])
+    tag=driver.find_element(By.TAG_NAME, 'button')
+    assert tag.text=='login'
+    driver.switch_to.window(parent)
+    driver.find_element(By.LINK_TEXT, 'IOME').click()
+    driver.switch_to.window(driver.window_handles[1])
+    span=driver.find_element(By.TAG_NAME, 'span')
+    assert span.text=='Go to app'
+    driver.switch_to.window(parent)
+    driver.find_element(By.LINK_TEXT, 'Mint Valley').click()
+    driver.switch_to.window(driver.window_handles[1])
+    h1TitleDataCheck11=driver.find_element(By.LINK_TEXT, 'Create')
+    assert h1TitleDataCheck11.text=='Create'
