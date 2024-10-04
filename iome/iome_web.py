@@ -16,7 +16,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 
 @pytest.fixture(scope="module")
 def driver():
-    driver = webdriver.Chrome(options=chrome_options)  
+    driver = webdriver.Chrome()  
     url = os.environ.get('URL') or 'https://iome.ai'
     driver.get(url)
     yield driver
