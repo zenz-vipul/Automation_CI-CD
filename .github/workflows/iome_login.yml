@@ -2,7 +2,7 @@ name: IOME Login Test
 
 on:
   schedule:
-    - cron: '20 10 * * *'  # Triggers at 10:00 AM IST
+    - cron: '30 01 * * *'  # Triggers at 07:00 AM IST
   workflow_dispatch:
   
 jobs:
