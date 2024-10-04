@@ -22,13 +22,16 @@ def driver():
     driver.maximize_window()
     yield driver
     driver.quit()
-
+        
 def test_nav_links(driver):
     try:
         # Increased wait time
-        navbar = WebDriverWait(driver, 30).until(
+        print("Waiting for the navbar to load...")
+        navbar = WebDriverWait(driver, 60).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
         )
+        print("Navbar found!")
+
         nav_links = navbar.find_elements(By.TAG_NAME, 'a')
 
         for link in nav_links:
@@ -38,7 +41,7 @@ def test_nav_links(driver):
             if not link_name or "mailto:" in link_url:
                 print(f"Skipping link: {link_name or 'empty'}")
                 continue
-            
+
             print(f"Testing navbar link: {link_name} -> {link_url}")
             driver.get(link_url)
             time.sleep(3)
@@ -47,10 +50,8 @@ def test_nav_links(driver):
                 "Digital You": "https://iome.ai/#the-digital-you",
                 "Developer": "https://dev.iome.ai/",
                 "Community": "https://iomeai.slack.com/join/shared_invite/zt-20s1w9jxg-unzBomKqMBrrq~DlYNpQHQ#/shared-invite/email",
-                # Removed "Go to app" link
             }
-            
-            # Check if the link is in the expected URLs
+
             if link_name in expected_url:
                 assert driver.current_url == expected_url[link_name], f"Navigation Link '{link_name}' did not redirect correctly or is broken."
             else:
@@ -61,5 +62,6 @@ def test_nav_links(driver):
 
     except TimeoutException:
         pytest.fail("Timeout: Navbar could not be located.")
+
     except Exception as e:
         pytest.fail(f"Error locating links: {e}")
