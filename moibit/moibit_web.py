@@ -55,11 +55,10 @@ def test_nav_links(driver):
 
 def test_links(driver):
     try:
-        # Adjust this selector to target the specific links you want to test
-        link_elements = driver.find_elements(By.CSS_SELECTOR, ".link-class")  # Update with the correct selector
+        link_elements = driver.find_elements(By.CSS_SELECTOR, ".link-class")  
 
         for link in link_elements:
-            link_name = link.find_element(By.TAG_NAME, "h4").text.strip()  # Assuming each link has an h4 element
+            link_name = link.find_element(By.TAG_NAME, "h4").text.strip()   
             link_url = link.get_attribute("href")
 
             if not link_name or "mailto:" in link_url or link_url is None:

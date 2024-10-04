@@ -3,6 +3,7 @@ name: MOIBit Website CI/CD
 on:
   schedule:
     - cron: '12 10 * * *'  # Triggers at 10:00 AM IST
+  workflow_dispatch:
 
 jobs:
   selenium-tests:
