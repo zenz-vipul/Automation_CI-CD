@@ -8,19 +8,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
 
 @pytest.fixture(scope="module")
-@pytest.fixture(scope="module")
 def driver():
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-software-rasterizer")  # Useful for headless Chrome
-    options.add_argument("--remote-debugging-port=9222")  # Required for DevTools
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome()  
     url = os.environ.get('URL') or 'https://iome.ai'
     driver.get(url)
     yield driver
@@ -65,7 +61,7 @@ def test_nav_links(driver):
             driver.back()
             WebDriverWait(driver, 10).until(
                 EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
-            ) 
+            )  # Wait for the navbar to be visible again
 
     except TimeoutException:
         pytest.fail("Timeout: Navbar could not be located.")
