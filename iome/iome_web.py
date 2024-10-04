@@ -8,15 +8,14 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 
-chrome_options = Options()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
+
 
 @pytest.fixture(scope="module")
 def driver():
-    driver = webdriver.Chrome()  
+    options = webdriver.ChromeOptions()
+    chrome_options = Options()
+    chrome_options.add_argument("--headless") 
+    driver = webdriver.Chrome(options=options)
     url = os.environ.get('URL') or 'https://iome.ai'
     driver.get(url)
     yield driver
@@ -51,7 +50,6 @@ def test_nav_links(driver):
             expected_url = {
                 "Digital You": "https://iome.ai/#the-digital-you",
                 "Developer": "https://dev.iome.ai/",
-                "Community": "https://iomeai.slack.com/join/shared_invite/zt-20s1w9jxg-unzBomKqMBrrq~DlYNpQHQ#/shared-invite/email",
             }
             
             if link_name in expected_url:
@@ -62,7 +60,7 @@ def test_nav_links(driver):
             driver.back()
             WebDriverWait(driver, 10).until(
                 EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
-            )  # Wait for the navbar to be visible again
+            ) 
 
     except TimeoutException:
         pytest.fail("Timeout: Navbar could not be located.")

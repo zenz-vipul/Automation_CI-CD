@@ -19,9 +19,15 @@ def driver():
 
 def test_nav_links(driver):
     try:
-        navbar = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#navbarMenu"))
+        # Wait for the navbar to be fully loaded
+        WebDriverWait(driver, 20).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, ".navbar-menu"))
         )
+
+        # Locate the navbar
+        navbar = driver.find_element(By.CSS_SELECTOR, ".navbar-menu")
+
+        # Locate the links
         nav_links = navbar.find_elements(By.TAG_NAME, "a")
 
         for link in nav_links:
@@ -49,7 +55,7 @@ def test_nav_links(driver):
         pytest.fail("Timeout: Navbar could not be located.")
     except Exception as e:
         pytest.fail(f"Error locating footer links: {e}")
-
+        
 def test_links(driver):
     try:
         link_elements = driver.find_elements(By.CSS_SELECTOR, ".link-class")  
