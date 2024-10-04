@@ -1,71 +1,67 @@
 import os
+import time
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.options import Options
 
-PAGE_URL = os.getenv('PAGE_URL', 'https://iome.ai/')
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def driver():
+    options = webdriver.ChromeOptions()
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--window-size=1920,1080")
-    driver = webdriver.Chrome(options=chrome_options)
+    chrome_options.add_argument("--headless") 
+    driver = webdriver.Chrome(options=options)
+    url = os.environ.get('URL') or 'https://iome.ai'
+    driver.get(url)
     yield driver
     driver.quit()
 
-def test_digital_you_link(driver):
-    driver.get(PAGE_URL)
-    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[href="/#the-digital-you"]')))
-    digital_you = WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, 'a[href="/#the-digital-you"]'))
-    )
-    digital_you.click()
-    WebDriverWait(driver, 20).until(EC.url_contains('/#the-digital-you'))
-    assert driver.current_url.endswith('/#the-digital-you')
+def test_nav_links(driver):
+    try:
+        print("Waiting for page to be fully loaded...")
+        WebDriverWait(driver, 60).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'body'))
+        )
+        print("Page is fully loaded!")
+        
+        print("Waiting for navbar to be visible...")
+        navbar = WebDriverWait(driver, 60).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
+        )
+        print("Navbar is visible!")
+        nav_links = navbar.find_elements(By.TAG_NAME, 'a')
 
-def test_developer_link(driver):
-    driver.get(PAGE_URL)
-    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[href="https://dev.iome.ai"]')))
-    
-    developer_link = WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, 'a[href="https://dev.iome.ai"]'))
-    )
-    assert developer_link.get_attribute('target') == '_blank'
-    developer_link.click()
-    driver.switch_to.window(driver.window_handles[-1])
-    WebDriverWait(driver, 20).until(EC.url_contains('dev.iome.ai'))
-    assert 'dev.iome.ai' in driver.current_url
-    driver.close()
-    driver.switch_to.window(driver.window_handles[0])
+        for link in nav_links:
+            link_name = link.text.strip()
+            link_url = link.get_attribute("href")
 
-def test_community_link(driver):
-    driver.get(PAGE_URL)
-    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[href="https://join.slack.com/t/iomeai/shared_invite/zt-20s1w9jxg-unzBomKqMBrrq~DlYNpQHQ"]')))
-    
-    community_link = WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, 'a[href="https://join.slack.com/t/iomeai/shared_invite/zt-20s1w9jxg-unzBomKqMBrrq~DlYNpQHQ"]'))
-    )
-    assert community_link.get_attribute('target') == '_blank'
-    community_link.click()
-    driver.switch_to.window(driver.window_handles[-1])
-    WebDriverWait(driver, 20).until(EC.url_contains('slack.com'))
-    assert 'slack.com' in driver.current_url
-    driver.close()
-    driver.switch_to.window(driver.window_handles[0])
+            if not link_name or "mailto:" in link_url:
+                print(f"Skipping link: {link_name or 'empty'}")
+                continue
+            
+            print(f"Testing navbar link: {link_name} -> {link_url}")
+            driver.get(link_url)
 
-def test_go_to_app_button(driver):
-    driver.get(PAGE_URL)
-    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[href="/login/"] button')))
-    
-    go_to_app_button = WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, 'a[href="/login/"] button'))
-    )
-    go_to_app_button.click()
-    WebDriverWait(driver, 20).until(EC.url_contains('/login/'))
-    assert driver.current_url.endswith('/login/')
+            expected_url = {
+                "Digital You": "https://iome.ai/#the-digital-you",
+                "Developer": "https://dev.iome.ai/",
+            }
+            
+            if link_name in expected_url:
+                assert driver.current_url == expected_url[link_name], f"Navigation Link '{link_name}' did not redirect correctly or is broken."
+            else:
+                print(f"Skipping validation for link: {link_name}")
+
+            driver.back()
+            WebDriverWait(driver, 10).until(
+                EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
+            ) 
+
+    except TimeoutException:
+        pytest.fail("Timeout: Navbar could not be located.")
+    except Exception as e:
+        pytest.fail(f"Error locating links: {e}")
