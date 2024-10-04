@@ -20,9 +20,7 @@ class LoginAutomation:
     def click_go_to_app(self):
         try:
             go_to_app_button = WebDriverWait(self.driver, 15).until(
-                EC.element_to_be_clickable(
-                    (By.XPATH, "//button[span[text()='Go to app']]")
-                )
+                EC.element_to_be_clickable((By.XPATH, "//button[span[text()='Go to app']]"))
             )
             go_to_app_button.click()
         except TimeoutException:
@@ -33,15 +31,11 @@ class LoginAutomation:
     def login(self, username, password):
         try:
             username_field = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located(
-                    (By.XPATH, '//input[@placeholder="Username"]')
-                )
+                EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Username"]'))
             )
             username_field.send_keys(username)
 
-            password_field = self.driver.find_element(
-                By.XPATH, '//input[@placeholder="Password"]'
-            )
+            password_field = self.driver.find_element(By.XPATH, '//input[@placeholder="Password"]')
             password_field.send_keys(password)
 
             self.driver.find_element(By.XPATH, '//button[span[text()="Login"]]').click()
@@ -59,11 +53,8 @@ class LoginAutomation:
         return username, password
 
     def login_to_account(self, username, password):
-        print(f"Logging in with Username: {username}")
-        print(f"Logging in with Password: {password}")
-
         if not self.click_go_to_app():
-            return False  # Exit if 'Go to app' button is not clickable
+            return False
         return self.login(username, password)
 
 @pytest.fixture(scope="module")
@@ -79,13 +70,8 @@ def test_random_login(driver):
     account = LoginAutomation(driver)
     account.setup("https://iome.ai")
 
-    for _ in range(1):  
-        random_username, random_password = account.generate_random_credentials()
-        print(f"Testing random Username: {random_username}, Password: {random_password}")
-        assert account.login_to_account(random_username, random_password) == False  # Expect False because random creds are invalid
-        
-    # Return to the home page after each login attempt
-    driver.get("https://iome.ai")
+    random_username, random_password = account.generate_random_credentials()
+    assert account.login_to_account(random_username, random_password) == False  # Invalid creds
 
 def test_specific_login(driver):
     account = LoginAutomation(driver)
@@ -93,11 +79,4 @@ def test_specific_login(driver):
 
     specific_username = "test26sep"
     specific_password = "Test@123"
-    print(f"\nNow testing with specific credentials...")
-
-    # Log in with specific credentials
-    assert account.login_to_account(specific_username, specific_password) == True  # Expect True for valid creds
-    
-    # Wait a bit before quitting to ensure everything processed
-    time.sleep(3)
-    driver.quit()
+    assert account.login_to_account(specific_username, specific_password) == True  # Valid creds
