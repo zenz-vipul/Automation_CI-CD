@@ -4,13 +4,12 @@ import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
+chrome_options=Options()
+chrome_options.add_argument('--headless')
+
 class Test_landing_page:
     def setup_method(self):
-        chrome_options = Options()
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        self.driver = webdriver.Chrome(options=chrome_options)
+        self.driver = webdriver.Chrome()
 
     def teardown_method(self):
         self.driver.quit()
@@ -39,3 +38,5 @@ class Test_landing_page:
         go_to_app_link.click()
         time.sleep(2) 
         self.driver.back()
+        
+        
