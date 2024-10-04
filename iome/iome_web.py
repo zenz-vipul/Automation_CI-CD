@@ -26,6 +26,12 @@ def driver():
 def test_nav_links(driver):
     try:
         # Increased wait time
+        print("Waiting for page to be fully loaded...")
+        WebDriverWait(driver, 60).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'body'))
+        )
+        print("Page is fully loaded!")
+        
         print("Waiting for navbar to be visible...")
         navbar = WebDriverWait(driver, 60).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
