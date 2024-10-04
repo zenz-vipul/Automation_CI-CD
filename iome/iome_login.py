@@ -67,7 +67,7 @@ class LoginAutomation:
 @pytest.fixture(scope="module")
 def driver():
     firefox_options = Options()
-    # firefox_options.add_argument('--headless')  
+    firefox_options.add_argument('--headless')  
     firefox_options.add_argument('--window-size=1920,1080')  # Set the window size to 1920x1080
     driver = webdriver.Firefox(options=firefox_options)
     yield driver   
