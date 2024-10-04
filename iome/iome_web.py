@@ -12,8 +12,9 @@ from selenium.webdriver.chrome.options import Options
 @pytest.fixture(scope="module")
 def driver():
     options = webdriver.ChromeOptions()
-    chrome_options = Options()
-    chrome_options.add_argument("--headless") 
+    options.add_argument("--headless")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--no-sandbox")
     driver = webdriver.Chrome(options=options)
     url = os.environ.get('URL') or 'https://iome.ai'
     driver.get(url)
