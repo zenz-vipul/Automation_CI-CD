@@ -89,3 +89,4 @@ def test_specific_login(driver):
     specific_password = "Test@123"
     print(f"\nNow testing with specific credentials...")
     assert account.login_to_account(specific_username, specific_password) == True  
+    driver.quit()
