@@ -20,7 +20,7 @@ class LoginAutomation:
     def click_go_to_app(self):
         try:
             go_to_app_button = WebDriverWait(self.driver, 15).until(
-                EC.visibility_of_element_located(
+                EC.element_to_be_clickable(
                     (By.XPATH, "//button[span[text()='Go to app']]")
                 )
             )
