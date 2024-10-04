@@ -7,27 +7,27 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 
+# Set Chrome options for headless mode
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+
 @pytest.fixture(scope="module")
 def driver():
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(options=options)
+    # Pass the Chrome options to WebDriver
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.get("https://moibit.io/")
+    driver.maximize_window()
     yield driver
     driver.quit()
 
 def test_nav_links(driver):
     try:
-        # Wait for the navbar to be fully loaded
-        WebDriverWait(driver, 20).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, ".navbar-menu"))
+        navbar = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "#navbarMenu"))
         )
-
-        # Locate the navbar
-        navbar = driver.find_element(By.CSS_SELECTOR, ".navbar-menu")
-
-        # Locate the links
         nav_links = navbar.find_elements(By.TAG_NAME, "a")
 
         for link in nav_links:
@@ -54,14 +54,15 @@ def test_nav_links(driver):
     except TimeoutException:
         pytest.fail("Timeout: Navbar could not be located.")
     except Exception as e:
-        pytest.fail(f"Error locating footer links: {e}")
-        
+        pytest.fail(f"Error locating navbar links: {e}")
+
 def test_links(driver):
     try:
-        link_elements = driver.find_elements(By.CSS_SELECTOR, ".link-class")  
+        # Adjust this selector to target the specific links you want to test
+        link_elements = driver.find_elements(By.CSS_SELECTOR, ".link-class")  # Update with the correct selector
 
         for link in link_elements:
-            link_name = link.find_element(By.TAG_NAME, "h4").text.strip()   
+            link_name = link.find_element(By.TAG_NAME, "h4").text.strip()  # Assuming each link has an h4 element
             link_url = link.get_attribute("href")
 
             if not link_name or "mailto:" in link_url or link_url is None:
@@ -82,4 +83,4 @@ def test_links(driver):
             time.sleep(2)
 
     except Exception as e:
-        pytest.fail(f"Error locating link: {e}")
+        pytest.fail(f"Error locating links: {e}")

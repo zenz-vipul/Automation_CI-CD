@@ -61,7 +61,7 @@ def test_nav_links(driver):
             driver.back()
             WebDriverWait(driver, 10).until(
                 EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
-            )  # Wait for the navbar to be visible again
+            )  
 
     except TimeoutException:
         pytest.fail("Timeout: Navbar could not be located.")
