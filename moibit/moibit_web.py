@@ -15,7 +15,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 @pytest.fixture(scope="module")
 def driver():
     driver = webdriver.Chrome()
-    driver.get("https://moibit.io/")
+    driver.get("https://moibit.io/") 
     driver.maximize_window()
     yield driver
     driver.quit()
@@ -80,4 +80,4 @@ def test_links(driver):
             time.sleep(2)
 
     except Exception as e:
-        pytest.fail(f"Error locating links: {e}")
+        pytest.fail(f"Error locating link: {e}")
