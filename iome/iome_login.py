@@ -5,10 +5,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import random
 import string
+from selenium.webdriver.firefox.options import Options
 
+firefox_options=Options()
+firefox_options.add_argument('--headless')
 class TestSignUp:
     def setup_method(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox(options=firefox_options)
         self.driver.get('https://iome.ai')
         self.driver.maximize_window()
         WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//button[span[text()="Go to app"]]')))
