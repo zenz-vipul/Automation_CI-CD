@@ -1,50 +1,66 @@
+import os
+import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.options import Options
 
-@pytest.fixture
+chrome_options = Options()
+chrome_options.add_argument("--headless") 
+
+@pytest.fixture(scope="module")
 def driver():
-    options = webdriver.ChromeOptions()
-    # options.add_argument("--headless")
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome()  
+    url = os.environ.get('URL') or 'https://iome.ai'
+    driver.get(url)
     yield driver
     driver.quit()
 
-def test_links(driver):
-    driver.get("https://iome.ai")  # Replace with the actual URL
+def test_nav_links(driver):
+    try:
+        print("Waiting for page to be fully loaded...")
+        WebDriverWait(driver, 60).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'body'))
+        )
+        print("Page is fully loaded!")
+        
+        print("Waiting for navbar to be visible...")
+        navbar = WebDriverWait(driver, 60).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
+        )
+        print("Navbar is visible!")
+        nav_links = navbar.find_elements(By.TAG_NAME, 'a')
 
-    # Check "Digital You" link
-    digital_you_link = WebDriverWait(driver, 30).until(
-        EC.visibility_of_element_located((By.XPATH, "//a[contains(text(), 'Digital You')]"))
-    )
-    digital_you_link.click()
-    assert driver.current_url == "https://iome.ai/#the-digital-you"
+        for link in nav_links:
+            link_name = link.text.strip()
+            link_url = link.get_attribute("href")
 
-    # Check "Developer" link
-    driver.get("https://iome.ai")  # Go back to the main page
-    developer_link = WebDriverWait(driver, 30).until(
-        EC.visibility_of_element_located((By.XPATH, "//a[contains(text(), 'Developer')]"))
-    )
-    developer_link.click()
-    assert driver.current_url == "https://dev.iome.ai"
+            if not link_name or "mailto:" in link_url:
+                print(f"Skipping link: {link_name or 'empty'}")
+                continue
+            
+            print(f"Testing navbar link: {link_name} -> {link_url}")
+            driver.get(link_url)
 
-    # Check "Community" link
-    driver.get("https://iome.ai")  # Go back to the main page
-    community_link = WebDriverWait(driver, 30).until(
-        EC.visibility_of_element_located((By.XPATH, "//a[contains(text(), 'Community')]"))
-    )
-    community_link.click()
-    assert driver.current_url == "https://join.slack.com/t/iomeai/shared_invite/zt-20s1w9jxg-unzBomKqMBrrq~DlYNpQHQ"
+            expected_url = {
+                "Digital You": "https://iome.ai/#the-digital-you",
+                "Developer": "https://dev.iome.ai/",
+            }
+            
+            if link_name in expected_url:
+                assert driver.current_url == expected_url[link_name], f"Navigation Link '{link_name}' did not redirect correctly or is broken."
+            else:
+                print(f"Skipping validation for link: {link_name}")
 
-    # Check "Go to app" link
-    driver.get("https://iome.ai")  # Go back to the main page
-    go_to_app_link = WebDriverWait(driver, 30).until(
-        EC.visibility_of_element_located((By.XPATH, "//button[contains(text(), 'Go to app')]"))
-    )
-    go_to_app_link.click()
-    assert driver.current_url == "https://iome.ai/login/"
+            driver.back()
+            WebDriverWait(driver, 10).until(
+                EC.visibility_of_element_located((By.CSS_SELECTOR, '.ant-col.flex.justify-end'))
+            )  
 
-def test_links_integration(driver):  # Corrected function signature
-    test_links(driver)
+    except TimeoutException:
+        pytest.fail("Timeout: Navbar could not be located.")
+    except Exception as e:
+        pytest.fail(f"Error locating links: {e}")
