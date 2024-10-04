@@ -2,14 +2,14 @@ import time
 from selenium import webdriver
 import pytest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 
-chrome_options=Options()
-chrome_options.add_argument('--headless')
+firefox_options=Options()
+firefox_options.add_argument('--headless')
 
 class Test_landing_page:
     def setup_method(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox(options=firefox_options)
 
     def teardown_method(self):
         self.driver.quit()
@@ -38,5 +38,3 @@ class Test_landing_page:
         go_to_app_link.click()
         time.sleep(2) 
         self.driver.back()
-        
-        
