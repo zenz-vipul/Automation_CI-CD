@@ -45,7 +45,7 @@ class LoginAutomation:
 
             self.driver.find_element(By.XPATH, '//button[span[text()="Login"]]').click()
 
-            WebDriverWait(self.driver, 10).until(EC.url_contains("digitalme"))
+            WebDriverWait(self.driver, 20).until(EC.url_contains("digitalme"))
             print(f"Login successful with Username: {username} and Password: {password}")
             return True
         except TimeoutException:
@@ -67,7 +67,7 @@ class LoginAutomation:
 @pytest.fixture(scope="module")
 def driver():
     firefox_options = Options()
-    # firefox_options.add_argument('--headless')  
+    firefox_options.add_argument('--headless')  
     firefox_options.add_argument('--window-size=1920,1080')  # Set the window size to 1920x1080
     driver = webdriver.Firefox(options=firefox_options)
     yield driver   
@@ -81,8 +81,9 @@ def test_random_login(driver):
         random_username, random_password = account.generate_random_credentials()
         print(f"Testing random Username: {random_username}, Password: {random_password}")
         assert account.login_to_account(random_username, random_password) == False  
-        driver.get("https://iome.ai")  # Go back to the home page
-        time.sleep(3)  # Wait for 3 seconds
+        driver.get("https://iome.ai")   
+        time.sleep(3)   
+        account.click_go_to_app()  
         
 def test_specific_login(driver):
     account = LoginAutomation(driver)
