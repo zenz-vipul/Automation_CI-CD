@@ -1,4 +1,4 @@
-name: MOIBit Website CI/CD
+name: IOME Website Test
 
 on:
   schedule:

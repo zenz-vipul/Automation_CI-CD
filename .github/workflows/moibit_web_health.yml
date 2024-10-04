@@ -1,8 +1,8 @@
-name: MOIBit Website CI/CD
+name: MOIBit Website Test
 
 on:
   schedule:
-    - cron: '12 10 * * *'  # Triggers at 10:00 AM IST
+    - cron: '43 13 * * *'  # Triggers at 10:00 AM IST
   workflow_dispatch:
 
 jobs:
