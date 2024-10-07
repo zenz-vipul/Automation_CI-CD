@@ -28,16 +28,16 @@ jobs:
         pytest moibit/moibit_web.py
 
     - name: Create Issue on Failure
-            if: failure()  # This step runs only if previous steps failed
-            uses: actions/github-script@v6
-            with:
-              script: |
-                const title = "GitHub Actions CI Failure";
-                const body = `The CI pipeline failed on commit: ${process.env.GITHUB_SHA}\n\nCheck the details here: ${process.env.GITHUB_RUN_URL}`;
-                const issue = await github.issues.create({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  title: title,
-                  body: body
-                });
-                console.log(`Created issue: ${issue.data.html_url}`);
+      if: failure()  # This step runs only if the previous steps failed
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const title = "GitHub Actions CI Failure";
+          const body = `The CI pipeline failed on commit: ${process.env.GITHUB_SHA}\n\nCheck the details here: ${process.env.GITHUB_RUN_URL}`;
+          const issue = await github.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: title,
+            body: body
+          });
+          console.log(`Created issue: ${issue.data.html_url}`);
