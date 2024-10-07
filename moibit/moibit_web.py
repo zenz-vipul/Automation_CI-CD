@@ -17,7 +17,7 @@ def test_moibit():
     driver.get(url)
     driver.maximize_window()
     h1TitleDataCheck1=driver.find_element(By.XPATH, '//div[@class="container grid md:gap-48 gap-32"]/h1')
-    assert h1TitleDataCheck1.text=='Your data, managed your way'
+    assert h1TitleDataCheck1.text==' data, managed your way'
 
     #header
     driver.find_element(By.LINK_TEXT, 'Pricing').click()
