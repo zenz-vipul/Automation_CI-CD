@@ -8,7 +8,7 @@ import string
 from selenium.webdriver.firefox.options import Options
 
 firefox_options = Options()
-firefox_options.add_argument('--headless')
+# firefox_options.add_argument('--headless')
 
 class TestSignUp:
     def setup_method(self):

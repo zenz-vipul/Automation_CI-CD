@@ -15,25 +15,32 @@ class Test_landing_page:
 
     def test_digital_you(self):
         self.driver.get("https://dev.iome.ai")
-        self.driver.find_element(By.XPATH, '//a[@href="/#the-digital-you"]').click()
+        self.driver.find_element(By.XPATH, '//a[contains(@href,/docs/devportal/]')').click()
         time.sleep(2)
         self.driver.back()
 
     def test_developer(self):
         self.driver.get("https://dev.iome.ai")
-        self.driver.find_element(By.XPATH, '//a[@href="https://dev.iome.ai"]').click()
+        self.driver.find_element(By.XPATH, '//a[contains(@href,/docs/applications/]')
         time.sleep(2)
         self.driver.back()
 
     def test_community(self):
         self.driver.get("https://dev.iome.ai")
-        self.driver.find_element(By.XPATH, '//a[@href="https://join.slack.com/t/iomeai/shared_invite/zt-20s1w9jxg-unzBomKqMBrrq~DlYNpQHQ"]').click()
+        self.driver.find_element(By.XPATH, '//a[contains(@href,/docs/authentication/]')
         time.sleep(2)
         self.driver.back()
 
     def test_go_to_app(self):
         self.driver.get("https://dev.iome.ai")
-        go_to_app_link = self.driver.find_element(By.XPATH, '//button//span[contains(text(), "Go to app")]/..')
+        self.driver.find_element(By.XPATH, '//a[contains(@href,/docs/widget/]')
+        go_to_app_link.click()
+        time.sleep(2) 
+        self.driver.back()
+        
+    def test_go_to_app(self):
+        self.driver.get("https://dev.iome.ai")
+        self.driver.find_element(By.XPATH, '//a[contains(@href,/docs/api/]')
         go_to_app_link.click()
         time.sleep(2) 
         self.driver.back()

@@ -1,16 +1,21 @@
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import pytest
+import os
+ 
 
-url="https://moibit.io"
-
-firefox_option=Options()   
+firefox_option=Options()  #Runs the script in headless mode
 firefox_option.add_argument('--headless')
 
+url = "https://moibit.io"
+
 def test_moibit():
+    #landing page
     driver=webdriver.Firefox(options=firefox_option)
     wait=WebDriverWait(driver,10)
     driver.implicitly_wait(10)
@@ -27,10 +32,10 @@ def test_moibit():
     parent=driver.current_window_handle
     app=driver.find_element(By.LINK_TEXT, 'Go to app')
     driver.execute_script('arguments[0].click()',app)
-    driver.switch_to.window(driver.window_handles[1])   
+    driver.switch_to.window(driver.window_handles[1])  #Swith to the child window and checks for assertion
     p1TitleDataCheck1=driver.find_element(By.XPATH, '//div[@style="color: rgb(255, 255, 255); margin-top: 30px;"]/p[1]')
     assert p1TitleDataCheck1.text=='A FILE IN MOIBIT IS'
-    driver.switch_to.window(parent) 
+    driver.switch_to.window(parent) #Switch backs to paren window after assertion check is done
     driver.find_element(By.XPATH, '//button[@class="btn btn_primary px-8 py-2"]').click()
     driver.switch_to.window(driver.window_handles[1])
     p1TitleDataCheck2=driver.find_element(By.XPATH, '//div[@style="color: rgb(255, 255, 255); margin-top: 30px;"]/p[1]')
@@ -61,6 +66,7 @@ def test_moibit():
     assert h1TitleDataCheck5.text=='MOI Technology'
     driver.switch_to.window(parent)
 
+    #Fotter
     driver.find_element(By.LINK_TEXT, 'Documentation').click()
     driver.switch_to.window(driver.window_handles[1])
     h1TitleDataCheck6=driver.find_element(By.TAG_NAME, 'h1')

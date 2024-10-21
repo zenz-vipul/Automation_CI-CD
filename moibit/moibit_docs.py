@@ -217,7 +217,6 @@ def test_navigation(driver):
     assert "Get App details" in driver.title
     print("Test passed: Navigated to the Get App details page.")
 
-
     # Test 16: Clicking on the "Get Developer Details" link
     getdevdetails_link = WebDriverWait(driver, 60).until(
         EC.presence_of_element_located((By.LINK_TEXT, "Get Developer Details"))
@@ -339,4 +338,6 @@ def test_navigation(driver):
     WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.TAG_NAME, "h1")))
     assert "Storage Used" in driver.title
     print("Test passed: Navigated to the Storage Used.")
+    
+    
 

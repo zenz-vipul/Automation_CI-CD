@@ -1,641 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charSet="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="google-site-verification" content="81QEAEg1bTqeRKB6sT6nsNWJGTVa69ErjF-C8-Hlej4" />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="icon" href="/favicon.ico" />
-    <title>IOME: An universal Identity for all your web2 and web3 applications</title>
-    <meta name="robots" content="index,follow" />
-    <meta name="description" content="IOMe is a user-owned decentralized identity and authentication solution that lets users interoperate between web2 and web3 networks." />
-    <meta property="og:title" content="IOME: An universal Identity for all your web2 and web3 applications" />
-    <meta property="og:description" content="IOMe is a user-owned decentralized identity and authentication solution that lets users interoperate between web2 and web3 networks." />
-    <meta property="og:locale" content="en" />
-    <meta property="og:site_name" content="IOME Web User Agent" />
-    <meta name="next-head-count" content="13" />
-    <link rel="preload" href="/_next/static/css/c202987861a7959b.css" as="style" crossorigin="" />
-    <link rel="stylesheet" href="/_next/static/css/c202987861a7959b.css" crossorigin="" data-n-g="" />
-    <noscript data-n-css=""></noscript>
-    <script defer="" crossorigin="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script>
-    <script src="/_next/static/chunks/webpack-dd7aae6451e07f8f.js" defer="" crossorigin=""></script>
-    <script src="/_next/static/chunks/framework-fee8a7e75612eda8.js" defer="" crossorigin=""></script>
-    <script src="/_next/static/chunks/main-dee093dfb5a96dbd.js" defer="" crossorigin=""></script>
-    <script src="/_next/static/chunks/pages/_app-5d9007530d1301db.js" defer="" crossorigin=""></script>
-    <script src="/_next/static/chunks/1664-7246e58924eb0118.js" defer="" crossorigin=""></script>
-    <script src="/_next/static/chunks/2962-6d228be5c3ef478f.js" defer="" crossorigin=""></script>
-    <script src="/_next/static/chunks/pages/index-0b7b9df18fd4e186.js" defer="" crossorigin=""></script>
-    <script src="/_next/static/hLks4NLk9AMtztOsTBNwk/_buildManifest.js" defer="" crossorigin=""></script>
-    <script src="/_next/static/hLks4NLk9AMtztOsTBNwk/_ssgManifest.js" defer="" crossorigin=""></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Section with Text Over Rings</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #1a1a1a;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: rgb(255, 132, 0);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  .cta-button:hover {
+    background-color: rgb(225, 102, 0);
+  }
+
+  .ring-container {
+    position: absolute;
+    width: 100%;
+    height: 100vw;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease-in-out, border-color 0.5s ease-in-out;
+  }
+
+  .ring:nth-child(1) { width: 100%; height: 100%; border: 10px solid rgba(255, 255, 255, 0.2); }
+  .ring:nth-child(2) { width: 95%; height: 95%; left: 2.5%; top: 0%; border: 9px solid rgba(255, 255, 255, 0.2); }
+  .ring:nth-child(3) { width: 90%; height: 90%; left: 5%; top: 4%; border: 8px solid rgba(255, 255, 255, 0.2); }
+  .ring:nth-child(4) { width: 85%; height: 85%; left: 7.5%; top: 8%; border: 7px solid rgba(255, 255, 255, 0.2); }
+  .ring:nth-child(5) { width: 80%; height: 80%; left: 10%; top: 12%; border: 6px solid rgba(255, 255, 255, 0.2); }
+  .ring:nth-child(6) { width: 75%; height: 75%; left: 12.5%; top: 16%; border: 5px solid rgba(255, 255, 255, 0.2); }
+  .ring:nth-child(7) { width: 70%; height: 70%; left: 15%; top: 20%; border: 4px solid rgba(255, 255, 255, 0.2); }
+  .ring:nth-child(8) { width: 65%; height: 65%; left: 17.5%; top: 24%; border: 3px solid rgba(255, 255, 255, 0.2); }
+  .ring:nth-child(9) { width: 60%; height: 60%; left: 20%; top: 28%; border: 2px solid rgba(255, 255, 255, 0.2); }
+  .ring:nth-child(10) { width: 55%; height: 55%; left: 22.5%; top: 32%; border: 1px solid rgba(255, 255, 255, 0.2); }
+
+  .ring:hover {
+    border-color: rgb(255, 132, 0);
+  }
+</style>
 </head>
-
 <body>
-    <div id="__next">
-        <div class="!font-poppins">
-            <div>
-                <div>
-                    <div>
-                        <div>
-                            <div class="fixed top-0 left-0 right-0 bg-[#FFFFFF] py-10 z-[99999]">
-                                <div class="ant-row hidden md:flex container mx-auto items-center css-14qglws" style="margin-left:-16px;margin-right:-16px;row-gap:32px">
-                                    <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-md-12 ant-col-lg-12 ant-col-xl-12 css-14qglws">
-                                        <a href="/"><img src="https://cdn.iome.ai/images/iome-logo.svg" alt="iome logo" width="90" height="40" /></a>
-                                    </div>
-                                    <div style="padding-left:16px;padding-right:16px" class="ant-col flex justify-end ant-col-md-12 ant-col-lg-12 ant-col-xl-12 css-14qglws">
-                                        <div class="items-center">
-                                            <div class="flex items-center">
-                                                <a class="mr-8" href="/#the-digital-you">
-                                                    <div>
-                                                        <article class="ant-typography font-semibold text-base !font-poppins css-14qglws">Digital You</article>
-                                                    </div>
-                                                </a>
-                                                <a target="_blank" class="mr-8" href="https://dev.iome.ai">
-                                                    <div>
-                                                        <article class="ant-typography font-semibold text-base !font-poppins css-14qglws">Developer</article>
-                                                    </div>
-                                                </a>
-                                                <a target="_blank" class="mr-8" href="https://join.slack.com/t/iomeai/shared_invite/zt-20s1w9jxg-unzBomKqMBrrq~DlYNpQHQ">
-                                                    <div>
-                                                        <article class="ant-typography font-semibold text-base !font-poppins css-14qglws">Community</article>
-                                                    </div>
-                                                </a>
-                                                <a href="/login/">
-                                                    <button type="button" class="ant-btn css-14qglws ant-btn-default ant-btn-outlined font-poppins bg-[#000B80] text-[#FFFFFF] rounded-none flex items-center py-2 px-10 h-10 font-semibold text-sm leading-6 tracking-[0.03em] shadow-xl h-10 rounded-none !font-poppins"><span>Go to app</span></button>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="md:hidden mx-[20px] sm:mx-[32px] flex justify-between items-center">
-                                    <a href="/"><img src="https://cdn.iome.ai/images/iome-logo.svg" alt="iome logo" width="90" height="40" /></a>
-                                    <div class="flex items-center">
-                                        <a target="_blank" class="mr-8" href="https://dev.iome.ai">
-                                            <div>
-                                                <article class="ant-typography font-semibold text-base !font-poppins css-14qglws">Developer</article>
-                                            </div>
-                                        </a>
-                                        <a href="/login/">
-                                            <button type="button" class="ant-btn css-14qglws ant-btn-default ant-btn-outlined font-poppins bg-[#000B80] text-[#FFFFFF] rounded-none flex items-center py-2 px-10 h-10 font-semibold text-sm leading-6 tracking-[0.03em] shadow-xl h-10 rounded-none !font-poppins"><span>Go to app</span></button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="md:pt-[120px] md:px-[112px]">
-                        <div class="ant-row container mx-auto css-14qglws" style="margin-left:-16px;margin-right:-16px;row-gap:32px">
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-14qglws">
-                                <div>
-                                    <article class="ant-typography font-poppins text-[#000B80] font-bold text-5xl mt-[114px] !font-poppins css-14qglws">Universal and Unified
-                                        <br/> Identity for all your web3 and web2 applications</article>
-                                </div>
-                                <div class="flex items-center pt-6">
-                                    <div>
-                                        <a href="/login/">
-                                            <button type="submit" class="ant-btn css-14qglws ant-btn-default ant-btn-outlined font-poppins bg-[#000B80] text-[#FFFFFF] rounded-none text-center font-semibold text-sm leading-6 tracking-[0.03em] opacity-[0.92] shadow-xl w-auto h-10 rounded-none !font-poppins"><span>Build your Digital Me</span></button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-14qglws"><img src="https://cdn.iome.ai/images/hero-image.png" height="480" width="592" alt="a frictionless identity" class="mx-auto" /></div>
-                        </div>
-                    </div>
-                    <div class="pt-[80px] md:px-[112px]">
-                        <div class="ant-row container mx-auto css-14qglws" style="margin-left:-12px;margin-right:-12px;row-gap:24px">
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-14qglws">
-                                <div>
-                                    <article class="ant-typography font-poppins text-primary-200 font-bold text-[34px] !font-poppins css-14qglws">Personalized and decentralized identity management for the sovereign individual</article>
-                                </div>
-                            </div>
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-14qglws">
-                                <div>
-                                    <article class="ant-typography font-poppins text-primary-200 text-lg opacity-70 !font-poppins css-14qglws">IOMe is a user-owned decentralized identity and authentication solution that lets users interoperate between web2 and web3 networks. It extends MOI protocol&#x27;s identity infrastructure with zero-knowledge technology
-                                        to provide easy, and secure digital interactions.
-                                    </article>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pt-[168px] md:px-[112px]" id="the-digital-you">
-                        <div class="text-center">
-                            <div>
-                                <article class="ant-typography font-poppins text-primary-200 font-bold text-[34px] pb-9 !font-poppins css-14qglws">A Digital You to manage your digital life</article>
-                            </div>
-                        </div>
-                        <div class="ant-row container mx-auto css-14qglws" style="margin-left:-16px;margin-right:-16px;row-gap:32px">
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                <div><img src="https://cdn.iome.ai/images/easy-n-secure-access.svg" width="48" alt="IOMe enables easy and secure digital access" height="48" />
-                                    <div>
-                                        <article class="ant-typography pt-4 font-poppins font-bold text-lg24 tracking-[0.01em] text-[#000B80] opacity-95 !font-poppins css-14qglws">Manage your identity</article>
-                                    </div>
-                                    <div>
-                                        <article class="ant-typography pt-4 text-justify font-poppins font-medium text-sm tracking-[0.01em] text-[#080A26] opacity-70 !font-poppins css-14qglws">We categorized the digital information into several dimensions to let you have the complete control over your digital information in seamless and privacy preserved manner.</article>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                <div><img src="https://cdn.iome.ai/images/apps.svg" width="48" alt="IOMe enables easy and secure digital access" height="48" />
-                                    <div>
-                                        <article class="ant-typography pt-4 font-poppins font-bold text-lg24 tracking-[0.01em] text-[#000B80] opacity-95 !font-poppins css-14qglws">Manage your apps</article>
-                                    </div>
-                                    <div>
-                                        <article class="ant-typography pt-4 text-justify font-poppins font-medium text-sm tracking-[0.01em] text-[#080A26] opacity-70 !font-poppins css-14qglws">We ensure user give consent and know about every piece of information that is being shared with applications, and user has power to revoke the access anytime, while every interaction is powered by advanced cryptography.</article>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                <div><img src="https://cdn.iome.ai/images/interaction-management.svg" width="48" alt="IOMe enables easy and secure digital access" height="48" />
-                                    <div>
-                                        <article class="ant-typography pt-4 font-poppins font-bold text-lg24 tracking-[0.01em] text-[#000B80] opacity-95 !font-poppins css-14qglws">Managing your real-life interactions</article>
-                                    </div>
-                                    <div>
-                                        <article class="ant-typography pt-4 text-justify font-poppins font-medium text-sm tracking-[0.01em] text-[#080A26] opacity-70 !font-poppins css-14qglws">We allow user to create multiple digital avatars based on behaviour to enable context-specific interactions by sharing only the necessary identity information without compromising other personal information.</article>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pt-[180px] md:px-[112px]">
-                        <div class="text-center">
-                            <div>
-                                <article class="ant-typography font-poppins text-primary-200 font-bold text-[34px] pb-9 !font-poppins css-14qglws">Easily connect your digital and physical personas</article>
-                            </div>
-                        </div>
-                        <div class="ant-row container mx-auto css-14qglws" style="margin-left:-16px;margin-right:-16px;row-gap:32px">
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                <div><img src="https://cdn.iome.ai/images/simple.svg" width="48" alt="IOMe enables easy and secure digital access" height="48" />
-                                    <div>
-                                        <article class="ant-typography pt-4 font-poppins font-bold text-lg24 tracking-[0.01em] text-[#000B80] opacity-95 !font-poppins css-14qglws">Simple and intuitive access</article>
-                                    </div>
-                                    <div>
-                                        <article class="ant-typography pt-4 text-justify font-poppins font-medium text-sm tracking-[0.01em] text-[#080A26] opacity-70 !font-poppins css-14qglws">Access any digital application using a simple username and password. IOMe never stores your credentials and utilizes ZK-based verification and authentication.</article>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                <div><img src="https://cdn.iome.ai/images/privacy-enablement.svg" width="48" alt="IOMe enables easy and secure digital access" height="48" />
-                                    <div>
-                                        <article class="ant-typography pt-4 font-poppins font-bold text-lg24 tracking-[0.01em] text-[#000B80] opacity-95 !font-poppins css-14qglws">Secure data management</article>
-                                    </div>
-                                    <div>
-                                        <article class="ant-typography pt-4 text-justify font-poppins font-medium text-sm tracking-[0.01em] text-[#080A26] opacity-70 !font-poppins css-14qglws">Only you have full access to your own data. IOMe uses advanced public key cryptography to enable tamper-proof data storage with reduced risk.</article>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                <div><img src="https://cdn.iome.ai/images/choose.svg" width="48" alt="IOMe enables easy and secure digital access" height="48" />
-                                    <div>
-                                        <article class="ant-typography pt-4 font-poppins font-bold text-lg24 tracking-[0.01em] text-[#000B80] opacity-95 !font-poppins css-14qglws">Choose what you share</article>
-                                    </div>
-                                    <div>
-                                        <article class="ant-typography pt-4 text-justify font-poppins font-medium text-sm tracking-[0.01em] text-[#080A26] opacity-70 !font-poppins css-14qglws">Based on role behaviour of the user with that digital application, user has control over choosing what all information to be shared.</article>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ant-row container mx-auto pt-[54.5px] css-14qglws" style="margin-left:-16px;margin-right:-16px;row-gap:32px">
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                <div><img src="https://cdn.iome.ai/images/portable.svg" width="48" alt="IOMe enables easy and secure digital access" height="48" />
-                                    <div>
-                                        <article class="ant-typography pt-4 font-poppins font-bold text-lg24 tracking-[0.01em] text-[#000B80] opacity-95 !font-poppins css-14qglws">Portable and private</article>
-                                    </div>
-                                    <div>
-                                        <article class="ant-typography pt-4 text-justify font-poppins font-medium text-sm tracking-[0.01em] text-[#080A26] opacity-70 !font-poppins css-14qglws">IOMe implements DIDs and VCs to deliver portable and privacy-preserving data access, yet publicly verifiable.</article>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                <div><img src="https://cdn.iome.ai/images/context-aware.svg" width="48" alt="IOMe enables easy and secure digital access" height="48" />
-                                    <div>
-                                        <article class="ant-typography pt-4 font-poppins font-bold text-lg24 tracking-[0.01em] text-[#000B80] opacity-95 !font-poppins css-14qglws">Context-aware</article>
-                                    </div>
-                                    <div>
-                                        <article class="ant-typography pt-4 text-justify font-poppins font-medium text-sm tracking-[0.01em] text-[#080A26] opacity-70 !font-poppins css-14qglws">IOMe allows users to create behavior-based roles based on the context of the digital interactions and exchanging only necessary information.</article>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                <div><img src="https://cdn.iome.ai/images/seamless.svg" width="48" alt="IOMe enables easy and secure digital access" height="48" />
-                                    <div>
-                                        <article class="ant-typography pt-4 font-poppins font-bold text-lg24 tracking-[0.01em] text-[#000B80] opacity-95 !font-poppins css-14qglws">Seamless interoperability
-                                            <!-- -->
-                                        </article>
-                                    </div>
-                                    <div>
-                                        <article class="ant-typography pt-4 text-justify font-poppins font-medium text-sm tracking-[0.01em] text-[#080A26] opacity-70 !font-poppins css-14qglws">IOMe enables seamless interoperation for users by building participant native connectivity between blockchains, web2, and web3 networks.</article>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pt-[160px] px-2 md:px-[112px]">
-                        <div>
-                            <article class="ant-typography flex justify-center items-center text-center text-[#080A26] opacity-[0.85] text-5xl leading-[44px] font-bold !font-poppins css-14qglws">A quick sneak-peek at the gears that run the machine</article>
-                        </div>
-                        <div>
-                            <article class="ant-typography flex justify-center items-center mt-4 text-center text-[#080A26] opacity-[0.85] text-[14px] px-4 font-medium !font-poppins css-14qglws">IOMe is the new form of identity, that weaves together technologies to achieve key identity attributes such as self-ownership of data, censorship resistance and greater assurance of immutability.</article>
-                        </div>
-                        <div class="pt-10">
-                            <div class="ant-row container mx-auto css-14qglws" style="margin-left:-12px;margin-right:-12px;row-gap:24px">
-                                <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-12 css-14qglws">
-                                    <div class="bg-[#f5f5f5] px-6 py-8 shadow-2xl">
-                                        <div><img alt="IOMe leverages MOI Id" src="https://cdn.iome.ai/images/did.svg" width="64" height="64" /></div>
-                                        <div>
-                                            <article class="ant-typography pt-4 font-bold text-lg24 tracking-[0.01em] text-primary-100 opacity-95 !font-poppins css-14qglws">DIDs and VCs</article>
-                                        </div>
-                                        <div>
-                                            <article class="ant-typography pt-2 font-poppins font-medium text-[14px] tracking-[0.02em] text-primary-200 opacity-70 !font-poppins css-14qglws">The bedrock of IOMe lies in the application of Decentralized Identifiers (DIDs) on a blockchain and Verified Credentials (VCs) that are issued by reputable organizations and validated using cryptographic proof.</article>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-12 css-14qglws">
-                                    <div class="bg-[#f5f5f5] px-6 py-8 shadow-2xl">
-                                        <div><img alt="IOMe leverages MOI Id" src="https://cdn.iome.ai/images/zkp.svg" width="64" height="64" /></div>
-                                        <div>
-                                            <article class="ant-typography pt-4 font-bold text-lg24 tracking-[0.01em] text-primary-100 opacity-95 !font-poppins css-14qglws">ZKP Authentication</article>
-                                        </div>
-                                        <div>
-                                            <article class="ant-typography pt-2 font-poppins font-medium text-[14px] tracking-[0.02em] text-primary-200 opacity-70 !font-poppins css-14qglws">IOMe employs non-interactive zero-knowledge technology, specifically zk-SNARK, to enable password-less authentication and global verification.</article>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ant-row pt-8 container mx-auto css-14qglws" style="margin-left:-12px;margin-right:-12px;row-gap:24px">
-                                <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                    <div class="bg-[#f5f5f5] px-6 py-8 shadow-2xl h-[304px]">
-                                        <div><img alt="IOMe leverages MOI Id" src="https://cdn.iome.ai/images/tech-moi-id.svg" width="64" height="64" /></div>
-                                        <div>
-                                            <article class="ant-typography pt-4 font-bold text-lg24 tracking-[0.01em] text-primary-100 opacity-95 !font-poppins css-14qglws">MOI ID</article>
-                                        </div>
-                                        <div>
-                                            <article class="ant-typography pt-2 font-poppins font-medium text-[14px] tracking-[0.02em] text-primary-200 opacity-70 !font-poppins css-14qglws"> MOI ID&#x27;s decentralized identity specification is based on natural, sustainable human behaviors to facilitate participant-centric digital interactions.</article>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                    <div class="bg-[#f5f5f5] px-6 py-8 shadow-2xl h-[304px]">
-                                        <div><img alt="IOMe leverages MOI Id" src="https://cdn.iome.ai/images/simple.svg" width="64" height="64" /></div>
-                                        <div>
-                                            <article class="ant-typography pt-4 font-bold text-lg24 tracking-[0.01em] text-primary-100 opacity-95 !font-poppins css-14qglws">Interaction State Machine</article>
-                                        </div>
-                                        <div>
-                                            <article class="ant-typography pt-2 font-poppins font-medium text-[14px] tracking-[0.02em] text-primary-200 opacity-70 !font-poppins css-14qglws">ISM is a new computational model that introduces separate and independent dimension to the current model of the Turing machine to represent the possible behaviour of the participant in the network.</article>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8 css-14qglws">
-                                    <div class="bg-[#f5f5f5] px-6 py-8 shadow-2xl h-[304px]">
-                                        <div><img alt="IOMe leverages MOI Id" src="https://cdn.iome.ai/images/moibit.svg" width="64" height="64" /></div>
-                                        <div>
-                                            <article class="ant-typography pt-4 font-bold text-lg24 tracking-[0.01em] text-primary-100 opacity-95 !font-poppins css-14qglws">MOI Bit
-                                                <!-- -->
-                                            </article>
-                                        </div>
-                                        <div>
-                                            <article class="ant-typography pt-2 font-poppins font-medium text-[14px] tracking-[0.02em] text-primary-200 opacity-70 !font-poppins css-14qglws">Using MOI Bit, IOMe ensures regulatory compliance and provides risk-mitigated tamper-proof data storage through advanced public key cryptography.</article>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="road-map" class="pt-[100px] pb-[50px]"></div>
-                    <div class="px-8 lg:px-[160px]">
-                        <div>
-                            <article class="ant-typography font-poppins text-primary-200 font-bold text-[34px] text-center !font-poppins css-14qglws">The IOMe Journey</article>
-                        </div>
-                    </div>
-                    <div class=" container mx-auto overflow-auto">
-                        <div class="grid">
-                            <div class="px-4 md:px-0">
-                                <div class="flex -mb-2">
-                                    <div class="timeline-1">
-                                        <div class="grid gap-4 pt-[90px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Jan 2021</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">
-                                                    <!-- -->MVP wallet app</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-sm !font-poppins css-14qglws">The first version of IOMe’s non-custodial wallet</article>
-                                            </div>
-                                        </div>
-                                        <div class="v-line"></div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="grid gap-4 pt-[80px]">
-                                            <br/>
-                                            <br/>
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">July 2021</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">Digital Me for PII</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-sm  !font-poppins css-14qglws">IOMe uses MOI Bit for personal data storage</article>
-                                            </div>
-                                        </div>
-                                        <div class="v-line"></div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="grid gap-4 pt-[100px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Jan 2022</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">
-                                                    <!-- -->MOI Partnership</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-sm  !font-poppins css-14qglws">Onboarding partner for MOI validator programme</article>
-                                            </div>
-                                        </div>
-                                        <div class="v-line"></div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="grid gap-4 pt-[80px]">
-                                            <br/>
-                                            <br/>
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">July, 2022</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">
-                                                    <!-- -->Enterprise KYBs</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-sm  !font-poppins css-14qglws">KYB integrations for enterprise partners</article>
-                                            </div>
-                                        </div>
-                                        <div class="v-line"></div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="grid gap-4 pt-[60px]">
-                                            <br/>
-                                            <br/>
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Jan, 2023</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">
-                                                    <!-- -->New adopters</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-sm  !font-poppins css-14qglws">Mint Valley, Asset Fractio onboarded as adoptors</article>
-                                            </div>
-                                        </div>
-                                        <div class="v-line"></div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="grid gap-4 pt-[80px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">July, 2023</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">
-                                                    <!-- -->Developer Programme</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-sm  !font-poppins css-14qglws">SDK, APIs and a portal for creating and managing apps</article>
-                                            </div>
-                                        </div>
-                                        <div class="v-line"></div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <br/>
-                                        <div class="grid gap-4 pt-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Dec, 2023</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">
-                                                    <!-- -->DID &amp; VCs</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-sm  !font-poppins css-14qglws">DID and VCs implementation for portability</article>
-                                            </div>
-                                        </div>
-                                        <div class="v-line"></div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <br/>
-                                        <div class="grid gap-4 pt-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Apr, 2024</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">MFA via MPC</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-sm  !font-poppins css-14qglws">Multi-factor authentication with Multi Party Compute</article>
-                                            </div>
-                                        </div>
-                                        <div class="v-line"></div>
-                                    </div>
-                                </div>
-                                <div class="bg-light-textaccent h-1 rounded-2xl"></div>
-                                <div class="flex -mt-2">
-                                    <div class="timeline-0"></div>
-                                    <div class="timeline-1">
-                                        <div class="v-line"></div>
-                                        <div class="grid gap-4 pb-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 pb-0 !font-poppins css-14qglws">April, 2021</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">Easy access</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography psmall !font-poppins css-14qglws">Enabling web2 friendly experience with web3 technology</article>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="v-line"></div>
-                                        <div class="grid gap-4 pb-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Oct 2021</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">Digital avatars</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography psmall !font-poppins css-14qglws">Creation of interaction-aware roles and avatars
-                                                    <!-- -->
-                                                </article>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="v-line"></div>
-                                        <div class="grid gap-4 pb-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">April, 2022</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">Individual KYCs</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography psmall !font-poppins css-14qglws">KYC verification using trusted third parties</article>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="v-line"></div>
-                                        <div class="grid gap-4 pb-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Oct, 2022</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">Mobile apps</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography psmall !font-poppins css-14qglws">Launch of mobile apps for iOS and Android</article>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="v-line"></div>
-                                        <div class="grid gap-4 pb-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">April, 2023</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">ZKP &amp; Multiconnect</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography psmall !font-poppins css-14qglws">zk-SNARKs, MultiChain Connectivity, 2FA and Identity contract enhancements</article>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="v-line"></div>
-                                        <div class="grid gap-4 pb-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Oct mid, 2023</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">Web2 =&gt; Web3 Bridge</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography psmall !font-poppins css-14qglws">A Sethu module for existing business to migrate to web3</article>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="v-line"></div>
-                                        <div class="grid gap-4 pb-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Feb, 2024</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">Plugins for open forums</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography psmall !font-poppins css-14qglws">Plugins for Token Gated community, open forums etc</article>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-1">
-                                        <div class="v-line"></div>
-                                        <div class="grid gap-4 pb-[60px]">
-                                            <div>
-                                                <article class="ant-typography text-sm text-primary-100 !font-poppins css-14qglws">Aug, 2024</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography text-lg24 text-primary-100 font-bold !font-poppins css-14qglws">InterGalactic Connect</article>
-                                            </div>
-                                            <div>
-                                                <article class="ant-typography psmall !font-poppins css-14qglws">Listeners for stateful interoperability</article>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pt-[120px] container mx-auto px-2 md:px-0">
-                        <div>
-                            <article class="ant-typography  text-center font-poppins text-primary-200 font-bold text-[34px] pb-9 !font-poppins css-14qglws">Trusted By</article>
-                        </div>
-                        <div class="ant-row pt-8 css-14qglws" style="margin-left:-12px;margin-right:-12px;row-gap:24px">
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-6 ant-col-xxl-6 css-14qglws"><img src="https://cdn.iome.ai/images/bridge.svg" alt="Bridge LOGO" sizes="100vw" width="0" height="0" class="w-full h-auto" /></div>
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-6 ant-col-xxl-6 css-14qglws"><img src="https://cdn.iome.ai/images/meta-decrypt.svg" alt="Metadecrypt LOGO" sizes="100vw" width="0" height="0" class="w-full h-auto" /></div>
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-6 ant-col-xxl-6 css-14qglws"><img src="https://cdn.iome.ai/images/akshay-patra.svg" alt="AkshyaPatra LOGO" sizes="100vw" width="0" height="0" class="w-full h-auto" /></div>
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-6 ant-col-xxl-6 css-14qglws"><img src="https://cdn.iome.ai/images/gayn-capital.svg" alt="GaynCapital LOGO" sizes="100vw" width="0" height="0" class="w-full h-auto" /></div>
-                        </div>
-                        <div class="ant-row pt-10 css-14qglws" style="margin-left:-12px;margin-right:-12px;row-gap:24px">
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-6 ant-col-xxl-6 css-14qglws"><img src="https://cdn.iome.ai/images/ben-nft.svg" alt="BenNft LOGO" sizes="100vw" width="0" height="0" class="w-full h-auto" /></div>
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-6 ant-col-xxl-6 css-14qglws"><img src="https://cdn.iome.ai/images/mint-valley.svg" alt="MintValley LOGO" sizes="100vw" width="0" height="0" class="w-full h-auto" /></div>
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-6 ant-col-xxl-6 css-14qglws"><img src="https://cdn.iome.ai/images/finoverse.svg" alt="Finoverse LOGO" sizes="100vw" width="0" height="0" class="w-full h-auto" /></div>
-                            <div style="padding-left:12px;padding-right:12px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-6 ant-col-xxl-6 css-14qglws"><img src="https://cdn.iome.ai/images/assetfractio.svg" alt="AssetFractio LOGO" sizes="100vw" width="0" height="0" class="w-full h-auto" /></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <div class=" mt-[120px] bg-[#080A26]">
-                                <div class="ant-row  pt-[80px] container mx-auto css-14qglws" style="margin-left:-16px;margin-right:-16px;row-gap:32px">
-                                    <div style="padding-left:16px;padding-right:16px" class="ant-col ant-col-xs-24 ant-col-lg-12 ant-col-xl-12 css-14qglws">
-                                        <div class=""><img src="https://cdn.iome.ai/images/iome-logo-dark.svg" alt="IOME LOGO" height="40" width="90" /></div>
-                                        <div>
-                                            <article class="ant-typography pt-6 pr-5 font-poppins font-medium text-base tracking-[0.02em] text-[#FFFFFF] opacity-[0.66] !font-poppins css-14qglws">IOMe is a user-owned decentralized identity and authentication solution that lets users interoperate between web2 and web3 networks. It extends MOI protocol&#x27;s identity infrastructure with zero-knowledge
-                                                technology to provide easy, and secure digital interactions.
-                                            </article>
-                                        </div>
-                                    </div>
-                                    <div style="padding-left:16px;padding-right:16px" class="ant-col lg:grid ant-col-xs-24 ant-col-sm-32 ant-col-lg-4 ant-col-xl-4 css-14qglws"></div>
-                                    <div style="padding-left:16px;padding-right:16px" class="ant-col lg:grid ant-col-xs-12 ant-col-sm-32 ant-col-lg-4 ant-col-xl-4 css-14qglws">
-                                        <div>
-                                            <div>
-                                                <article class="ant-typography font-poppins font-bold text-base20 flex justify-start md:justify-end  tracking-[0.01em] text-[#FFFFFF] opacity-[0.66] !font-poppins css-14qglws">Legal</article>
-                                            </div>
-                                            <div class="pt-6 font-poppins font-medium text-sm tracking-[0.01em] text-[#FFFFFF] opacity-[0.66] text-left md:text-right">
-                                                <div><a style="color:#FFFFFF;opacity:0.66" class="pt-1" target="_blank" href="/privacy-policy/">Privacy Policy</a></div>
-                                                <div><a style="color:#FFFFFF;opacity:0.66" class="pt-1" target="_blank" href="https://cdn.iome.ai/pdfs/cookie-policy.pdf">Cookie Policy</a></div>
-                                                <div><a style="color:#FFFFFF;opacity:0.66" class="pt-1" target="_blank" href="https://cdn.iome.ai/pdfs/terms-of-service.pdf">Terms Of Service</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-left:16px;padding-right:16px" class="ant-col block lg:grid ant-col-sm-32 ant-col-lg-4 ant-col-xl-4 css-14qglws">
-                                        <div>
-                                            <div>
-                                                <article class="ant-typography font-poppins font-bold text-base20 flex justify-start md:justify-end  tracking-[0.01em] text-[#FFFFFF] opacity-[0.66] !font-poppins css-14qglws">Community</article>
-                                            </div>
-                                            <div class="pt-6 font-poppins font-medium text-sm tracking-[0.01em] text-[#FFFFFF] opacity-[0.66] text-left md:text-right">
-                                                <div><a style="color:#FFFFFF;opacity:0.66" class="pt-1" target="_blank" href="https://twitter.com/iome_ai">Twitter</a></div>
-                                                <div><a style="color:#FFFFFF;opacity:0.66" class="pt-1" target="_blank" href="https://t.me/+HqplcAez-AtlMGVl">Telegram</a></div>
-                                                <div><a style="color:#FFFFFF;opacity:0.66" class="pt-1" target="_blank" href="https://www.linkedin.com/company/iome_ai/">LinkedIn</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pt-10">
-                                    <div class="ant-row container mx-auto css-14qglws" style="margin-left:-16px;margin-right:-16px;row-gap:32px">
-                                        <div style="padding-left:16px;padding-right:16px" class="ant-col  lg:block hidden ant-col-lg-12 ant-col-xl-12 css-14qglws"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <article class="ant-typography pt-16 pb-10 text-[#FFFFFF] opacity-[0.66] text-center font-poppins font-medium text-base tracking-[0.02em] !font-poppins css-14qglws">© 2023
-                                        <!-- --><a class="text-[#B3B9FF]" href="https://sarva.ai" target="_blank">Sarva Labs Inc.</a>
-                                        <!-- -->All Rights Reserved.</article>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script id="__NEXT_DATA__" type="application/json" crossorigin="">{"props":{"pageProps":{}},"page":"/","query":{},"buildId":"hLks4NLk9AMtztOsTBNwk","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script>
-    <script>
-        (function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'8cd2fbe0cd887ea4',t:'MTcyODAyMTk2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
-    </script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8cd2fbe0cd887ea4","version":"2024.8.0","r":1,"token":"11c2aceefde349c997fa173d45e03a6e","serverTiming":{"name":{"cfExtPri":true,"cfL4":true}}}'
-    crossorigin="anonymous"></script>
-</body>
 
+<section class="hero-section"> 
+  <div class="ring-container">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+  
+  <div class="content">
+    <h1>Welcome to the Future</h1>
+    <p>Explore endless possibilities with our innovative solutions. We're here to help you achieve your goals and transform your vision into reality.</p>
+    <a href="#" class="cta-button">Get Started</a>
+  </div>
+</section>
+
+</body>
 </html>
+
