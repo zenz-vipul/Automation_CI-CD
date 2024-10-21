@@ -25,4 +25,4 @@ jobs:
 
     - name: Run Selenium Tests
       run: |
-        pytest moibit/moibit_web.py
+        pytest moibit/test_moibit.py
