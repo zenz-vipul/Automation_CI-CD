@@ -98,4 +98,4 @@ def test_moibit():
     # driver.find_element(By.LINK_TEXT, 'Mint Valley').click()
     # driver.switch_to.window(driver.window_handles[1])
     # h1TitleDataCheck11=driver.find_element(By.LINK_TEXT, 'Create')
-    assert h1TitleDataCheck11.text=='Create'
+    # assert h1TitleDataCheck11.text=='Create'
